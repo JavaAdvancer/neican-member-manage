@@ -1,0 +1,10 @@
+[Unit]
+Description=nm-wechat-api
+After=syslog.target
+[Service]
+WorkingDirectory=/var/www/nm-manage/nm-wechat-api
+ExecStart=/opt/jdk1.8.0_151/bin/java  -jar -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m -Xms512m -Xmx512m -Xmn256m -Xss1m -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC /var/www/vw-manage/vw-wechat-api/vw-wechat-api-1.0.0.jar --spring.profiles.active=prod
+SuccessExitStatus=143
+StandardOutput=null
+[Install]
+WantedBy=multi-user.target

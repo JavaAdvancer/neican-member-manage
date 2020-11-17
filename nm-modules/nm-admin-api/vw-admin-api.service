@@ -1,0 +1,9 @@
+[Unit]
+Description=nm-admin-api
+After=syslog.target
+[Service]
+WorkingDirectory=/var/www/nm-manage/nm-admin-api
+ExecStart=/opt/jdk1.8.0_201/bin/java  -jar -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -Xms128m -Xmx128m -Xmn128m -Xss1m -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC /var/www/nm-manage/nm-admin-api/nm-admin-api-1.0.0.jar --spring.profiles.active=test
+SuccessExitStatus=143
+[Install]
+WantedBy=multi-user.target

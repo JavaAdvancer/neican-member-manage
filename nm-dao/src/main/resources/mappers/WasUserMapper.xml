@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiyou.nm.mapper.WasUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jiyou.nm.model.entity.WasUser">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="real_name" property="realName" />
+        <result column="sex" property="sex" />
+        <result column="mobile" property="mobile" />
+        <result column="portrait" property="portrait" />
+        <result column="role_id" property="roleId" />
+        <result column="super_admin" property="superAdmin" />
+        <result column="state" property="state" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="remark" property="remark" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, password, real_name, sex, mobile, portrait, role_id, super_admin, state, create_time, update_time, remark, is_del
+    </sql>
+
+    <select id="select4Page" resultType="com.jiyou.nm.model.vo.PageWasUserRes">
+        select a.id,
+        a.username,
+        a.real_name,
+        a.sex,
+        a.mobile,
+        a.portrait,
+        a.role_id,
+        b.role_name,
+        a.state,
+        a.remark
+        from was_user a left join was_role b on a.role_id=b.id
+        <where>
+            and a.is_del=0 and a.super_admin=0
+            <if test="keyword!=null and keyword!=''">
+                and (
+                a.username like concat('%',#{keyword},'%')
+                or a.real_name like concat('%',#{keyword},'%')
+                or a.mobile like concat('%',#{keyword},'%')
+                )
+            </if>
+        </where>
+    </select>
+
+</mapper>

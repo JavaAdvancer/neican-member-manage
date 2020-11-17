@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiyou.nm.mapper.WasRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jiyou.nm.model.entity.WasRole">
+        <id column="id" property="id" />
+        <result column="role_name" property="roleName" />
+        <result column="role_des" property="roleDes" />
+        <result column="state" property="state" />
+        <result column="is_del" property="isDel" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, role_name, role_des, state, is_del, create_time, update_time
+    </sql>
+
+    <select id="select4Page" resultType="com.jiyou.nm.model.vo.PageWasRoleRes">
+        select a.id,
+        a.role_name,a.role_des,
+        a.state,
+        a.create_time
+        from was_role a
+        <where>
+            and a.is_del=0
+            <if test="keyword!=null and keyword!=''">
+                and a.role_name like concat('%',#{keyword},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>
